@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "devopstamops-rg"
-    storage_account_name = "devopstamopssa"
+    resource_group_name  = "devopsmydemo-rg"
+    storage_account_name = "devopsmydemosa"
     container_name       = "tfstate"
-    key                  = "aks-terraform.tfstate"
+    key                  = "aks02-terraform.tfstate"
   }
 }
 
@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 data "azurerm_resource_group" "resource_group" {
-  name = "${var.name}-rg"
+  name = "${var.name}rg0506"
 }
 
 data "azurerm_subnet" "akssubnet" {
@@ -34,13 +34,13 @@ data "azurerm_log_analytics_workspace" "workspace" {
 }
 
 resource "azurerm_kubernetes_cluster" "k8s" {
-  name                = "${var.name}aks"
+  name                = "${var.name}aks02"
   location            = var.location
   resource_group_name = data.azurerm_resource_group.resource_group.name
-  dns_prefix          = "${var.name}dns"
+  dns_prefix          = "${var.name}dns02"
   kubernetes_version  = var.kubernetes_version
 
-  node_resource_group = "${var.name}-node-rg"
+  node_resource_group = "${var.name}-node-rg02"
 
   linux_profile {
     admin_username = "ubuntu"
