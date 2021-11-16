@@ -10,7 +10,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 2.0"
     }
-  } 
+  }
 }
 
 provider "azurerm" {
@@ -42,7 +42,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   name                = "${var.name}aks02"
   location            = var.location
   resource_group_name = data.azurerm_resource_group.resource_group.name
-  dns_prefix          = "${var.name}dns02"
+  dns_prefix          = "${var.name}dns"
   kubernetes_version  = var.kubernetes_version
 
   node_resource_group = "${var.name}-node-rg02"
@@ -114,7 +114,7 @@ resource "azurerm_role_assignment" "node_infrastructure_update_scale_set" {
 }
 
 data "azurerm_container_registry" "example" {
-  name                = "${var.name}acr"
+  name                = "${var.name}acr0506"
   resource_group_name = data.azurerm_resource_group.resource_group.name
 }
 
