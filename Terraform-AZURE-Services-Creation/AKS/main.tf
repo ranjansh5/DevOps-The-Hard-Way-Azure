@@ -1,14 +1,19 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "devopsmydemo-rg"
-    storage_account_name = "devopsmydemosa"
+    resource_group_name  = "mydemorg02"
+    storage_account_name = "mydevopssa002"
     container_name       = "tfstate"
     key                  = "aks02-terraform.tfstate"
   }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 2.0"
+    }
+  } 
 }
 
 provider "azurerm" {
-  version = "~> 2.0"
   features {}
 }
 
@@ -51,7 +56,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   default_node_pool {
-    name                 = "agentpool"
+    name                 = "agentpool02"
     node_count           = var.agent_count
     vm_size              = var.vm_size
     vnet_subnet_id       = data.azurerm_subnet.akssubnet.id
